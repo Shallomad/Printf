@@ -11,12 +11,11 @@
 int _printf(const char *format, ...)
 {
 	va_list args;
+	
+        int count_char = 0;
 
 	va_start(args, format);
-
-	int count_char = 0;
-
-	while (*format)
+        while (*format)
 	{
 		if (*format == '%')
 		{
