@@ -11,15 +11,15 @@ int _printf(const char *str, ...)
 {
 	int count_char = 0;
 	va_list arg_list;
+	int i;
+	int is_placeholder = 0;
+	
 	va_start(arg_list, str);
-
 	while (*str)
 	{
 		if (*str == '%')
 		{
 			str++;
-			int i;
-			int is_placeholder = 0;
 
 			for (i = 0; i < placeholder_map_size; i++)
 			{
