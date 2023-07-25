@@ -1,69 +1,51 @@
 #include "main.h"
+
 /**
- * _printf - printf function that supports %c and %s conversions.
- *
- * @format: A format string containing zero or more conversion specifiers.
- *          %c - Character
- *          %s - String
+ * _printf - Custom implementation of printf function.
+ * @str: The format string.
+ * @arg_list: A va_list of arguments.
  *
  * Return: The number of characters printed.
  */
-int _printf(const char *format, ...)
+int _printf(const char *str, ...)
 {
-	va_list args;
-	
-        int count_char = 0;
+	int count_char = 0;
+	va_list arg_list;
+	va_start(arg_list, str);
 
-	va_start(args, format);
-        while (*format)
+	while (*str)
 	{
-		if (*format == '%')
+		if (*str == '%')
 		{
-			format++;
-			switch (*format)
+			str++;
+			int i;
+			int is_placeholder = 0;
+
+			for (i = 0; i < placeholder_map_size; i++)
 			{
-				case 'c':
+				if (*str == placeholder_map[i].placeholder_id)
 				{
-					char c = va_arg(args, int);
+					count_char += placeholder_map[i].
+						print_type(arg_list);
+					is_placeholder = 1;
+					break;
+				}
+			}
 
-					_putchar(c);
-					count_char++;
-					break;
-				}
-				case 's':
-				{
-					char *s = va_arg(args, char*);
-
-					while (*s)
-					{
-						_putchar(*s);
-						s++;
-						count_char++;
-					}
-					break;
-				}
-				case '%':
-				{
-					_putchar('%');
-					count_char++;
-					break;
-				}
-				default:
-					_putchar('%');
-					count_char++;
-					break;
+			if (!is_placeholder)
+			{
+				_putchar('%');
+				count_char++;
 			}
 		}
 		else
 		{
-			_putchar(*format);
+			_putchar(*str);
 			count_char++;
 		}
 
-		format++;
+		str++;
 	}
-
-	va_end(args);
 
 	return (count_char);
 }
