@@ -11,6 +11,8 @@ const placeholder_struct_t placeholder_map[] = {
 	{'o', print_octal},
 	{'x', _print_lower_hex},
 	{'X', _print_upper_hex},
+	{'S', print_str_cus},
+	{'p', print_p},
 };
 
 const int placeholder_map_size = sizeof(placeholder_map)
